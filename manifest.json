@@ -18,7 +18,19 @@
          "default": "Ctrl+Shift+Y",
          "mac": "Command+Shift+A"
        },
-       "description": "Trigger play or pause event",
+       "description": "Play or pause song",
+       "global": true
+     },
+     "repeat": {
+       "description": "Toggle repeat current",
+       "global": true
+     },
+     "next": {
+       "description": "Play next song",
+       "global": true
+     },
+     "previous": {
+       "description": "Play previous song",
        "global": true
      }
    },
