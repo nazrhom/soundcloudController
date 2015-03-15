@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "Getting started example",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "soundcloud.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "commands": {
+     "play-or-pause": {
+       "suggested_key": {
+         "default": "Ctrl+Shift+Y",
+         "mac": "Command+Shift+A"
+       },
+       "description": "Trigger play or pause event",
+       "global": true
+     }
+   },
+
+  "permissions": [
+    "activeTab",
+    "*://soundcloud.com/*",
+    "tabs"
+  ]
+}
