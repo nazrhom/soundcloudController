@@ -34,7 +34,7 @@ function findSuitableTab (tabs, callback) {
      } else {
        // if no tab is playing return lastPlayingTab
        if (lastPlayingTab) {
-         lastplayingTab.playing = false;
+         lastPlayingTab.playing = false;
          return callback(lastPlayingTab);
        } else {
          //if all else fails just return first tab found
