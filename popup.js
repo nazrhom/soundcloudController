@@ -1,47 +1,66 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 
-document.addEventListener('DOMContentLoaded', function() {
-
+function updateUI() {
   // Get current status to properly display UI
   backgroundPage.detectPageStatus(function(status) {
-    console.log(status)
-    if (status.playing) togglePlayPauseButton();
-    if (status.repeating) toggleRepeat();
+    setPlayPauseButton(status.playing);
+    setRepeat(status.repeating);
+    setMute(status.muted);
+    setTitle(status.title);
   });
+}
+
+function executeBackgroundCommand(command) {
+  backgroundPage.executeCommand(command);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  updateUI();
 
   // Setup Listeners
-  document.getElementById("play-pause-button").addEventListener("click",   backgroundPage.executeCommand.bind(null, 'play-or-pause'));
-  document.getElementById("previous-button").addEventListener("click", backgroundPage.executeCommand.bind(null, 'previous'));
-  document.getElementById("next-button").addEventListener("click", backgroundPage.executeCommand.bind(null, 'next'));
-  document.getElementById("repeat-button").addEventListener("click", backgroundPage.executeCommand.bind(null, 'repeat'));
+  document.getElementById("play-pause-button").addEventListener("click", executeBackgroundCommand.bind(null, 'play-or-pause'));
+  document.getElementById("previous-button").addEventListener("click", executeBackgroundCommand.bind(null, 'previous'));
+  document.getElementById("next-button").addEventListener("click", executeBackgroundCommand.bind(null, 'next'));
+  document.getElementById("repeat-button").addEventListener("click", executeBackgroundCommand.bind(null, 'repeat'));
 
 });
 
-function togglePlayPauseButton () {
+function setPlayPauseButton (playing) {
   var image = document.getElementById('play-pause');
-  if (image.src.match('play')) {
+  var marquee = document.getElementById('titolo');
+
+  if (playing) {
     image.src = 'img/pause.svg';
+    marquee.setAttribute('scrollamount', "5");
   } else {
     image.src = 'img/play.svg';
+    marquee.setAttribute('scrollamount', "3");
   }
 }
 
-function toggleRepeat() {
+function setRepeat(repeating) {
     var image = document.getElementById('replay');
-    if (image.src.match('repeat')) {
+    if (repeating) {
         image.src = 'img/bam.svg';
     } else {
         image.src = 'img/repeat.svg';
     }
 }
 
-
-chrome.runtime.onMessage.addListener(
-  function(request) {
-    if (request.command == 'play-or-pause') {
-      togglePlayPauseButton();
-    } else if (request.command == 'repeat') {
-      toggleRepeat();
+function setMute(muted) {
+    var image = document.getElementById('volume');
+    if (muted) {
+        image.src = 'img/volume_down.svg';
+    } else {
+        image.src = 'img/volume_up.svg';
     }
-  }
-)
+}
+
+function setTitle(title) {
+    var marquee = document.getElementById('titolo');
+    marquee.innerHTML = title;
+}
+
+
+chrome.runtime.onMessage.addListener(updateUI)

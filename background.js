@@ -12,13 +12,13 @@ function prepareScript (scriptFile) {
 }
 
 function isTabPlaying (tab, callback) {
-  chrome.tabs.executeScript(tab.id, prepareScript('detectPlaying'), function(results) {
-    return callback(results[0]);
+  getTabInfo(tab, function(tabInfo) {
+    return callback(tabInfo.playing);
   });
 }
 
-function isTabRepeating (tab, callback) {
-  chrome.tabs.executeScript(tab.id, prepareScript('detectRepeating'), function(results) {
+function getTabInfo (tab, callback) {
+  chrome.tabs.executeScript(tab.id, prepareScript('getTabInfo'), function(results) {
     return callback(results[0]);
   });
 }
@@ -26,7 +26,6 @@ function isTabRepeating (tab, callback) {
 function findSuitableTab (tabs, callback) {
   return async.detect(tabs, isTabPlaying, function(playingTab) {
      if (playingTab) {
-       playingTab.playing = true;
        //update playing tab
        lastPlayingTab = playingTab;
 
@@ -34,12 +33,10 @@ function findSuitableTab (tabs, callback) {
      } else {
        // if no tab is playing return lastPlayingTab
        if (lastPlayingTab) {
-         lastPlayingTab.playing = false;
          return callback(lastPlayingTab);
        } else {
          //if all else fails just return first tab found
          var pausedTab = tabs[0];
-         pausedTab.playing = false;
 
          // save as lastplaying tab
          lastPlayingTab = pausedTab;
@@ -87,10 +84,14 @@ function executeCommand(command) {
 function detectPageStatus (callback) {
   chrome.tabs.query(queryInfo, function(tabs) {
     findSuitableTab(tabs, function(tab) {
-      soundCloudStatus.playing = tab.playing;
 
-      isTabRepeating(tab, function(result) {
-        soundCloudStatus.repeating = result;
+
+      getTabInfo(tab, function(tabInfo) {
+        soundCloudStatus.playing = tabInfo.playing;
+        soundCloudStatus.repeating = tabInfo.repeating;
+        soundCloudStatus.muted = tabInfo.muted;
+        soundCloudStatus.title = tabInfo.title;
+
         callback(soundCloudStatus);
       });
     });
