@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "SoundCloud Controller",
+  "description": "This extension allows to control sound cloud tabs",
   "version": "1.0",
 
   "browser_action": {
