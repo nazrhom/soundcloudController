@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
   updateUI();
 
   // Setup Listeners
-  document.getElementById("play-pause-button").addEventListener("click", executeBackgroundCommand.bind(null, 'play-or-pause'));
-  document.getElementById("previous-button").addEventListener("click", executeBackgroundCommand.bind(null, 'previous'));
-  document.getElementById("next-button").addEventListener("click", executeBackgroundCommand.bind(null, 'next'));
-  document.getElementById("repeat-button").addEventListener("click", executeBackgroundCommand.bind(null, 'repeat'));
-
+  document.getElementById('play-pause-button').addEventListener('click', executeBackgroundCommand.bind(null, 'play-or-pause'));
+  document.getElementById('previous-button').addEventListener('click', executeBackgroundCommand.bind(null, 'previous'));
+  document.getElementById('next-button').addEventListener('click', executeBackgroundCommand.bind(null, 'next'));
+  document.getElementById('repeat-button').addEventListener('click', executeBackgroundCommand.bind(null, 'repeat'));
+  document.getElementById('volume-button').addEventListener('click', executeBackgroundCommand.bind(null, 'mute-unmute'))
 });
 
 function setPlayPauseButton (playing) {
