@@ -76,12 +76,12 @@ function executeCommand(command) {
   findSoundCloundTabId(function(playingTabId) {
     if (playingTabId) {
       chrome.tabs.executeScript(playingTabId, prepareScript(parsedCommand));
-      chrome.runtime.sendMessage({command: command});
+      emitPageStatus();
     }
   });
 }
 
-function detectPageStatus (callback) {
+function emitPageStatus () {
   chrome.tabs.query(queryInfo, function(tabs) {
     findSuitableTab(tabs, function(tab) {
 
@@ -91,7 +91,7 @@ function detectPageStatus (callback) {
         soundCloudStatus.muted = tabInfo.muted;
         soundCloudStatus.title = tabInfo.title;
 
-        callback(soundCloudStatus);
+        chrome.runtime.sendMessage(soundCloudStatus);
       });
     });
   });

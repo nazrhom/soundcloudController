@@ -1,29 +1,29 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 
-function updateUI() {
+function updateUI(status) {
+
+  console.log('got status: ', status)
   // Get current status to properly display UI
-  backgroundPage.detectPageStatus(function(status) {
-    setPlayPauseButton(status.playing);
-    setRepeat(status.repeating);
-    setMute(status.muted);
-    setTitle(status.title);
-  });
+  setPlayPauseButton(status.playing);
+  setRepeat(status.repeating);
+  setMute(status.muted);
+  setTitle(status.title);
 }
 
 function executeBackgroundCommand(command) {
-  backgroundPage.executeCommand(command);
+  return backgroundPage.executeCommand.bind(null, command);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  updateUI();
+  backgroundPage.emitPageStatus();
 
   // Setup Listeners
-  document.getElementById('play-pause-button').addEventListener('click', executeBackgroundCommand.bind(null, 'play-or-pause'));
-  document.getElementById('previous-button').addEventListener('click', executeBackgroundCommand.bind(null, 'previous'));
-  document.getElementById('next-button').addEventListener('click', executeBackgroundCommand.bind(null, 'next'));
-  document.getElementById('repeat-button').addEventListener('click', executeBackgroundCommand.bind(null, 'repeat'));
-  document.getElementById('volume-button').addEventListener('click', executeBackgroundCommand.bind(null, 'mute-unmute'))
+  document.getElementById('play-pause-button').addEventListener('click', executeBackgroundCommand('play-or-pause'));
+  document.getElementById('previous-button').addEventListener('click', executeBackgroundCommand('previous'));
+  document.getElementById('next-button').addEventListener('click', executeBackgroundCommand('next'));
+  document.getElementById('repeat-button').addEventListener('click', executeBackgroundCommand('repeat'));
+  document.getElementById('volume-button').addEventListener('click', executeBackgroundCommand('mute-unmute'));
 });
 
 function setPlayPauseButton (playing) {
