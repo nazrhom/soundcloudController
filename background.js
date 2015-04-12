@@ -84,7 +84,6 @@ function executeCommand(command) {
 function emitPageStatus () {
   chrome.tabs.query(queryInfo, function(tabs) {
     findSuitableTab(tabs, function(tab) {
-
       getTabInfo(tab, function(tabInfo) {
         soundCloudStatus.playing = tabInfo.playing;
         soundCloudStatus.repeating = tabInfo.repeating;

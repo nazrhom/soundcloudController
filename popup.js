@@ -1,8 +1,6 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 
 function updateUI(status) {
-
-  console.log('got status: ', status)
   // Get current status to properly display UI
   setPlayPauseButton(status.playing);
   setRepeat(status.repeating);
@@ -63,4 +61,4 @@ function setTitle(title) {
 }
 
 
-chrome.runtime.onMessage.addListener(updateUI)
+chrome.runtime.onMessage.addListener(updateUI):

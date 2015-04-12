@@ -5,6 +5,12 @@
   "description": "This extension allows to control sound cloud tabs",
   "version": "1.0",
 
+  "icons": {
+    "16": "soundcloud.png",
+    "48": "soundcloud.png",
+    "128": "soundcloud.png"
+  },
+
   "browser_action": {
     "default_icon": "soundcloud.png",
     "default_popup": "popup.html"
