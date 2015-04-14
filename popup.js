@@ -61,4 +61,4 @@ function setTitle(title) {
 }
 
 
-chrome.runtime.onMessage.addListener(updateUI):
+chrome.runtime.onMessage.addListener(updateUI);
