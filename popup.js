@@ -40,7 +40,7 @@ function setPlayPauseButton (playing) {
 function setRepeat(repeating) {
     var image = document.getElementById('replay');
     if (repeating) {
-        image.src = 'img/bam.svg';
+        image.src = 'img/repeat_active.svg';
     } else {
         image.src = 'img/repeat.svg';
     }
@@ -49,9 +49,9 @@ function setRepeat(repeating) {
 function setMute(muted) {
     var image = document.getElementById('volume');
     if (muted) {
-        image.src = 'img/volume_down.svg';
+        image.src = 'img/mute.svg';
     } else {
-        image.src = 'img/volume_up.svg';
+        image.src = 'img/max_volume.svg';
     }
 }
 
