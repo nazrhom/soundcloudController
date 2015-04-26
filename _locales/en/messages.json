@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "SoundCloud Controller"
+  },
+  "extShortName": {
+    "message": "SC Controller"
+  },
+  "extDescription": {
+    "message": "This extension allows to control SoundCloud tabs"
+  }
+}
