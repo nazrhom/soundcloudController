@@ -1,8 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "SoundCloud Controller",
-  "description": "This extension allows to control sound cloud tabs",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "version": "1.0",
 
   "icons": {
@@ -12,7 +14,10 @@
   },
 
   "browser_action": {
-    "default_icon": "soundcloud.png",
+    "default_icon": {
+      "19": "soundcloud.png",
+      "38": "soundcloud.png"
+    },
     "default_popup": "popup.html"
   },
   "background": {
@@ -32,11 +37,11 @@
        "global": true
      },
      "next": {
-       "description": "Play next song",
+       "description": "Go to next song",
        "global": true
      },
      "previous": {
-       "description": "Play previous song",
+       "description": "Go to previous song",
        "global": true
      }
    },
