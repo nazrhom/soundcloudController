@@ -6,6 +6,9 @@ function updateUI(status) {
   setRepeat(status.repeating);
   setMute(status.muted);
   setTitle(status.title);
+  setLike(status.liking);
+
+  console.log(status)
 }
 
 function executeBackgroundCommand(command) {
@@ -22,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('next-button').addEventListener('click', executeBackgroundCommand('next'));
   document.getElementById('repeat-button').addEventListener('click', executeBackgroundCommand('repeat'));
   document.getElementById('volume-button').addEventListener('click', executeBackgroundCommand('mute-unmute'));
+  document.getElementById('like-button').addEventListener('click', executeBackgroundCommand('like'));
+
 });
 
 function setPlayPauseButton (playing) {
@@ -53,6 +58,10 @@ function setMute(muted) {
     } else {
         image.src = 'img/max_volume.svg';
     }
+}
+
+function setLike(liking) {
+  var image = document.getElementById('like');
 }
 
 function setTitle(title) {
