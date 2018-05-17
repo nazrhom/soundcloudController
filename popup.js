@@ -5,8 +5,10 @@ function updateUI(status) {
   setPlayPauseButton(status.playing);
   setRepeat(status.repeating);
   setMute(status.muted);
+  setArtist(status.artist);
   setTitle(status.title);
   setLike(status.liking);
+  setImage(status.image);
 
   console.log(status)
 }
@@ -69,12 +71,21 @@ function setLike(liking) {
   } else {
     image.src = 'img/dislike.svg';
   }
+}
 
+function setArtist(artist) {
+  var artistSection = document.querySelector('#nzqm-artist small b');
+  artistSection.innerHTML = artist;
 }
 
 function setTitle(title) {
-  var marquee = document.getElementById('nzqm-title');
-  marquee.innerHTML = title;
+  var titleSection = document.getElementById('nzqm-title');
+  titleSection.innerHTML = title;
+}
+
+function setImage(image) {
+  var playerImage = document.getElementById('nzqm-song-image');
+  playerImage.style.backgroundImage = image;
 }
 
 

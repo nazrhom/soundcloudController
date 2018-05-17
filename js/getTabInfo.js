@@ -8,9 +8,13 @@ tabInfo.muted = document.getElementsByClassName('volume')[0].classList.contains(
 
 tabInfo.liking = document.getElementsByClassName('playbackSoundBadge__like')[0] == undefined ? false : document.getElementsByClassName('playbackSoundBadge__like')[0].classList.contains('sc-button-selected');
 
+tabInfo.artist = document.getElementsByClassName('playbackSoundBadge__lightLink')[0].title || '';
+
 var tabTitle = document.querySelector('.playbackSoundBadge__title a');
 
 tabInfo.title = tabTitle ? tabTitle.title : '';
+
+tabInfo.image = document.querySelector('.playbackSoundBadge__avatar div span').style.backgroundImage;
 
 tabInfo;
 
