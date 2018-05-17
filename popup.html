@@ -38,7 +38,7 @@
 				width: 57px;
 			}
 
-			#titolo{
+			#nzqm-title{
 				font: 12px/1.4 "Lucida Grande","Lucida Sans Unicode","Lucida Saem",Garuda,Verdana,Tahoma,sans-serif;
 				color: #222;
 				background: #F2F2F2;
@@ -94,7 +94,7 @@
 				width: 20px;
 			}
 
-			#scroll-volume{
+			#nzqm-scroll-volume{
 				width: 8.9em;
 				padding: 15px;
 				background: #222;
@@ -131,27 +131,27 @@
 	<body>
 
 	<div class="player-controls" style="display:inline-flex">
-		<button class="prev" id="previous-button">
+		<button class="prev" id="nzqm-previous-button">
 			<img src="img/prev.svg" width="13">
 		</button>
-		<button class="play-pause" id="play-pause-button">
-			<img id="play-pause" src="img/play.svg" height="20">
+		<button class="play-pause" id="nzqm-play-pause-button">
+			<img id="nzqm-play-pause" src="img/play.svg" height="20">
 		</button>
-		<button class="next" id="next-button">
+		<button class="next" id="nzqm-next-button">
 			<img src="img/next.svg" width="13">
 		</button>
-		<marquee id="titolo" behavior="scroll" direction="left" scrollamount="5" width="110"></marquee>
-		<button class="repeat" id="repeat-button">
-			<img id="replay" src="img/repeat.svg" width="19">
+		<marquee id="nzqm-title" behavior="scroll" direction="left" scrollamount="5" width="110"></marquee>
+		<button class="repeat" id="nzqm-repeat-button">
+			<img id="nzqm-replay" src="img/repeat.svg" width="19">
 		</button>
-		<button class="sound" id="volume-button">
-			<img id="volume" src="img/max_volume.svg" width="19">
+		<button class="sound" id="nzqm-volume-button">
+			<img id="nzqm-volume" src="img/max_volume.svg" width="19">
 		</button>
-		<button class="like" id="like-button">
-			<img id="like" src="img/like.svg" width="19">
+		<button class="like" id="nzqm-like-button">
+			<img id="nzqm-like-icon" src="img/dislike.svg" width="19">
 		</button>
 	</div>
-	<div id="scroll-volume">
+	<div id="nzqm-scroll-volume">
 		<input type="range" min="0" max="50" value="5" step="5" onchange="rangevalue.value=value" />
 	</div>
 	</body>

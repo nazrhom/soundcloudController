@@ -7,3 +7,6 @@ function dispatchMouseEvent(target, var_args) {
 };
 
 dispatchMouseEvent(document.getElementsByClassName('playbackSoundBadge__like')[0], 'click', true, true);
+
+
+chrome.runtime.onMessage.addListener(getElement);
