@@ -189,3 +189,29 @@ img:hover {
     align-items: center;
     width: 100%; 
 }
+
+
+
+
+.scroll-container {
+    height: 50px;	
+    overflow: hidden;
+    position: relative;
+}
+.scroll-container p.scroll {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+    /* Starting position */
+    -webkit-transform:translateX(0%);	
+    /* Apply animation to this element */	
+    -webkit-animation: scrollAnimation 7s linear infinite;
+}
+/* Move it (define the animation) */
+@-webkit-keyframes scrollAnimation {
+    0%   { -webkit-transform: translateX(100%); }
+    100% { -webkit-transform: translateX(-100%); }
+}

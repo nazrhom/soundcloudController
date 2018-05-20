@@ -81,6 +81,11 @@ function setArtist(artist) {
 function setTitle(title) {
   var titleSection = document.getElementById('nzqm-title');
   titleSection.innerHTML = title;
+  if(title.length > 24) {
+    titleSection.setAttribute('class', 'scroll');
+  } else {
+    titleSection.setAttribute('class', '');
+  }
 }
 
 function setImage(image) {
