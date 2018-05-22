@@ -9,12 +9,17 @@ function updateUI(status) {
   setTitle(status.title);
   setLike(status.liking);
   setImage(status.image);
+  // startTimeline(status.songCurrentTime, status.songLength);
 
   console.log(status)
 }
 
 function executeBackgroundCommand(command) {
   return backgroundPage.executeCommand.bind(null, command);
+}
+
+function moveTimeLine() {
+  
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -81,7 +86,7 @@ function setArtist(artist) {
 function setTitle(title) {
   var titleSection = document.getElementById('nzqm-title');
   titleSection.innerHTML = title;
-  if(title.length > 24) {
+  if (title.length > 24) {
     titleSection.setAttribute('class', 'scroll');
   } else {
     titleSection.setAttribute('class', '');
@@ -93,5 +98,24 @@ function setImage(image) {
   playerImage.style.backgroundImage = image;
 }
 
+function startTimeline(current, max) {
+  var timelineWidth = document.getElementById('nzqm-timer-bar').clientWidth;
 
+  var timelineSongLength = document.getElementById('nzqm-song-image');
+  var timelineCurrent = document.getElementById('nzqm-song-image');
+  var timeLineBackgroud = document.getElementById('nzqm-song-image');
+
+  timelineMax.innerHTML = formatTime(max)
+  updateTimeline(current, max, timelineWidth)
+}
+
+function updateTimeline(current, songLength, maxWidth) {
+  var modifier = current / songLength;
+  timelineCurrent.style.width = modifier * maxWidth
+  timeLineBackgroud.style.left = modifier * maxWidth
+  delayed = setTimeout(() => {
+    updateTimeline(current + 1, songLength, maxWidth)
+    clearTimeout(delayed)
+  }, 1000);
+}
 chrome.runtime.onMessage.addListener(updateUI);

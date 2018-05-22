@@ -124,6 +124,8 @@ function emitPageStatus () {
         soundCloudStatus.liking = tabInfo.liking;
         soundCloudStatus.image = tabInfo.image;
         soundCloudStatus.artist = tabInfo.artist;
+        soundCloudStatus.songLength = tabInfo.songLength;
+        soundCloudStatus.songCurrentTime = tabInfo.songCurrentTime;
 
         chrome.runtime.sendMessage(soundCloudStatus);
       });
@@ -131,6 +133,9 @@ function emitPageStatus () {
   });
 }
 
+
+// Add listener for keyboard shortcuts
 chrome.commands.onCommand.addListener(function(command) {
+  console.log(command)
   executeCommand(command);
 });
