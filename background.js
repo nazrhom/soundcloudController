@@ -46,7 +46,7 @@ function findSuitableTab (tabs, callback) {
   });
 }
 
-function findSoundCloundTabId (callback) {
+function findSoundCloundTab (callback) {
   chrome.tabs.query(queryInfo, function(tabs) {
 
     if (tabs.length === 0) return callback();
@@ -55,12 +55,12 @@ function findSoundCloundTabId (callback) {
       var tab = tabs[0];
 
       lastActiveTab = tab;
-      return callback(tab.id);
+      return callback(tab);
     }
 
     else {
       findSuitableTab(tabs, function(tab) {
-        return callback(tab.id);
+        return callback(tab);
       });
     }
 
@@ -74,14 +74,29 @@ function parseCommand(command) {
   }).join('');
 }
 
+function executeCommandOnTab(tab, command, backoff = 100) {
+  if (tab.status === 'loading') {
+    var delayed = setTimeout(() => {
+      executeCommandOnTab(tab, command, backoff * 2)
+      clearTimeout(delayed)
+    }, backoff)
+  } else {
+    runCommand(tab, command)
+  }
+}
+
+function runCommand(tab, command) {
+  chrome.tabs.executeScript(tab.id, prepareScript(command), () => {
+    emitPageStatus();
+  });
+}
+
 function executeCommand(command) {
   var parsedCommand = parseCommand(command);
 
-  findSoundCloundTabId(function(playingTabId) {
-    if (playingTabId) {
-      chrome.tabs.executeScript(playingTabId, prepareScript(parsedCommand), function() {
-        emitPageStatus();
-      });
+  findSoundCloundTab(function(playingTab) {
+    if (playingTab) {
+      executeCommandOnTab(playingTab, parsedCommand)
     } else if (lastActiveTab) {
 
       var createProperties = {
@@ -89,7 +104,7 @@ function executeCommand(command) {
         active: false
       };
       chrome.tabs.create(createProperties, function(newTab) {
-
+        executeCommandOnTab(newTab, parsedCommand)
       });
     }
     else {
@@ -99,9 +114,9 @@ function executeCommand(command) {
 }
 
 function emitPageStatus () {
-  findSoundCloundTabId(function(tabId) {
-    if (tabId) {
-      getTabInfo(tabId, function(tabInfo) {
+  findSoundCloundTab(function(tab) {
+    if (tab) {
+      getTabInfo(tab.id, function(tabInfo) {
         soundCloudStatus.playing = tabInfo.playing;
         soundCloudStatus.repeating = tabInfo.repeating;
         soundCloudStatus.muted = tabInfo.muted;
