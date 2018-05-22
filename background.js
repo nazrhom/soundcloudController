@@ -106,6 +106,9 @@ function emitPageStatus () {
         soundCloudStatus.repeating = tabInfo.repeating;
         soundCloudStatus.muted = tabInfo.muted;
         soundCloudStatus.title = tabInfo.title;
+        soundCloudStatus.liking = tabInfo.liking;
+        soundCloudStatus.image = tabInfo.image;
+        soundCloudStatus.artist = tabInfo.artist;
 
         chrome.runtime.sendMessage(soundCloudStatus);
       });

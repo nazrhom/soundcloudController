@@ -1,0 +1,211 @@
+.inline-flex-center {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+}
+
+.prev,
+.next {
+    padding-top: 3px;
+}
+
+button {
+    background: transparent;
+    border: 0px;
+}
+
+.player-card {
+    min-width: 245px;
+}
+
+.player-controls {
+    background: -webkit-linear-gradient(top, rgba(221,221,221,0.95) 1%,rgba(241, 241, 241, 0.95) 70%,rgba(0,0,0,0) 100%);
+    border: 1px solid #CECECE;
+    padding: 0.4em 0;
+    min-height: 28px;
+}
+
+.prev {
+    margin-top: 1px;
+}
+
+.next {
+    margin-right: 12px;
+    padding-right: 1em;
+    z-index: 99;
+}
+
+.play-pause {
+    padding: 0.18em 1.3em 0em 1.5em;
+    width: 57px;
+}
+
+.player-info .song-info {
+    width: calc(100% - 95px);
+    color: #222;
+    font: 13px/1.4 "Lucida Grande", "Lucida Sans Unicode", "Lucida Saem", Garuda, Verdana, Tahoma, sans-serif;
+    padding-left: 2px;
+}
+
+.player-info .settings-container {
+    width: 30px;
+}
+
+#nzqm-settings-button {
+    border-left: 1px solid #ddd;
+}
+
+#nzqm-artist {
+    margin-bottom: 0;
+}
+
+#nzqm-title {
+    margin-top: 0;
+}
+
+#nzqm-song-image {
+    width: 50px;
+    height: 50px;
+    padding: 0 2px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.repeat {
+    padding: 0 1em;
+}
+
+.sound {
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.like {
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 0.2em 0.5em;
+}
+
+
+input[type='range'] {
+    -webkit-appearance: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px #333;
+    background-color: #999;
+    height: 10px;
+    vertical-align: middle;
+}
+
+input[type='range']::-moz-range-track {
+    -moz-appearance: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px #333;
+    background-color: #999;
+    height: 10px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    border-radius: 20px;
+    background-color: #FFF;
+    box-shadow: inset 0 0 10px rgba(000, 000, 000, 0.5);
+    border: 1px solid #999;
+    height: 20px;
+    width: 20px;
+}
+
+input[type='range']::-moz-range-thumb {
+    -moz-appearance: none;
+    border-radius: 20px;
+    background-color: #FFF;
+    box-shadow: inset 0 0 10px rgba(000, 000, 000, 0.5);
+    border: 1px solid #999;
+    height: 20px;
+    width: 20px;
+}
+
+#nzqm-scroll-volume {
+    width: 8.9em;
+    padding: 15px;
+    background: #222;
+    transform: rotate(90deg);
+    border-radius: 0 4px 4px 0px;
+    margin-top: 62px;
+    margin-left: 240px;
+    display: none;
+}
+
+.disappear {
+    display: none;
+}
+
+.appear {
+    display: block!important;
+}
+
+body {
+    margin: 0px;
+}
+
+:focus {
+    outline: none;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+/*Settings container*/
+.player-settings {
+    min-width: 400px;
+    padding: 5px;
+    width: auto;
+}
+
+.player-settings .header {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; 
+}
+
+.player-settings .content {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: monospace;
+    font-size: 15px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.player-settings .footer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+}
+
+
+
+/*Marquee scroll*/
+.scroll-container {
+    height: 50px;	
+    overflow: hidden;
+    position: relative;
+}
+.scroll-container p.scroll {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-transform:translateX(0%);		
+    -webkit-animation: scrollAnimation 7s linear infinite;
+}
+/* Move it (define the animation) */
+@-webkit-keyframes scrollAnimation {
+    0%   { -webkit-transform: translateX(100%); }
+    100% { -webkit-transform: translateX(-100%); }
+}
