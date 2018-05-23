@@ -1,16 +1,19 @@
-var backgroundPage = chrome.extension.getBackgroundPage();
+const backgroundPage = chrome.extension.getBackgroundPage();
+let updateTimelineTimeout;
+let UI_STATUS;
 
 function updateUI(status) {
+  UI_STATUS = status
   // Get current status to properly display UI
-  setPlayPauseButton(status.playing);
+  setPlayPauseButton(status.playing, status.songCurrentTime);
   setRepeat(status.repeating);
   setMute(status.muted);
   setArtist(status.artist);
   setTitle(status.title);
   setLike(status.liking);
   setImage(status.image);
-  // startTimeline(status.songCurrentTime, status.songLength);
-
+  setTime(status.songCurrentTime)
+  setTimeLineCursor(status.songCurrentTime, status.songLength)
   console.log(status)
 }
 
@@ -18,12 +21,7 @@ function executeBackgroundCommand(command) {
   return backgroundPage.executeCommand.bind(null, command);
 }
 
-function moveTimeLine() {
-  
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-
   backgroundPage.emitPageStatus();
 
   // Setup Listeners
@@ -33,17 +31,22 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('nzqm-repeat-button').addEventListener('click', executeBackgroundCommand('repeat'));
   document.getElementById('nzqm-volume-button').addEventListener('click', executeBackgroundCommand('mute-unmute'));
   document.getElementById('nzqm-like-button').addEventListener('click', executeBackgroundCommand('like'));
-
+  setupAnimation();
 });
 
-function setPlayPauseButton(playing) {
+function setPlayPauseButton(playing, songCurrentTime) {
   var image = document.getElementById('nzqm-play-pause');
   var marquee = document.getElementById('nzqm-title');
+  var animation
 
   if (playing) {
+    startTimeline(songCurrentTime);
     image.src = 'img/pause.svg';
     marquee.setAttribute('scrollamount', "5");
   } else {
+    if (updateTimelineTimeout) {
+      clearTimeout(updateTimelineTimeout)
+    }
     image.src = 'img/play.svg';
     marquee.setAttribute('scrollamount', "3");
   }
@@ -94,28 +97,100 @@ function setTitle(title) {
 }
 
 function setImage(image) {
-  var playerImage = document.getElementById('nzqm-song-image');
+  const playerImage = document.getElementById('nzqm-song-image');
   playerImage.style.backgroundImage = image;
 }
 
-function startTimeline(current, max) {
+function setTime(current) {
+  const clock = document.getElementById('nzqm-clock')
+  clock.innerHTML = formatTime(current)
+}
+
+function setTimeLine(px) {
+  const pointer = document.getElementById('nzqm-timer-pointer');
+  const background = document.getElementById('nzqm-timer-background');
+
+  pointer.style.left = px + "px";
+  background.style.width = px + "px";
+}
+
+function setTimeLineCursor(current, max) {
+  const bar = document.getElementById('nzqm-timer-bar');
+  const maxWidth = bar.clientWidth;
+  setTimeLine((current / max) * maxWidth)
+}
+
+function formatTime(time) {
+  // Hours, minutes and seconds
+  var hrs = ~~(time / 3600);
+  var mins = ~~((time % 3600) / 60);
+  var secs = time % 60;
+
+  // Output like "1:01" or "4:03:59" or "123:03:59"
+  var ret = '';
+
+  if (hrs > 0) {
+      ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
+  }
+
+  ret += '' + mins + ':' + (secs < 10 ? '0' : '');
+  ret += '' + secs;
+  return ret;
+}
+
+function startTimeline(current) {
   var timelineWidth = document.getElementById('nzqm-timer-bar').clientWidth;
 
-  var timelineSongLength = document.getElementById('nzqm-song-image');
-  var timelineCurrent = document.getElementById('nzqm-song-image');
-  var timeLineBackgroud = document.getElementById('nzqm-song-image');
-
-  timelineMax.innerHTML = formatTime(max)
-  updateTimeline(current, max, timelineWidth)
+  // var timelineSongLength = document.getElementById('nzqm-song-image');
+  setTime(current)
+  return updateTimeline(current, UI_STATUS.songLength, timelineWidth)
 }
 
 function updateTimeline(current, songLength, maxWidth) {
+  var timelineCurrent = document.getElementById('nzqm-timer-pointer');
+  var timeLineBackgroud = document.getElementById('nzqm-timer-background');
   var modifier = current / songLength;
-  timelineCurrent.style.width = modifier * maxWidth
-  timeLineBackgroud.style.left = modifier * maxWidth
-  delayed = setTimeout(() => {
-    updateTimeline(current + 1, songLength, maxWidth)
-    clearTimeout(delayed)
+
+  setTime(current)
+  timelineCurrent.style.left = (modifier * maxWidth) + 'px'
+  timeLineBackgroud.style.width = (modifier * maxWidth) + 'px'
+  updateTimelineTimeout = setTimeout(() => {
+    clearTimeout(updateTimelineTimeout);
+    updateTimeline(current + 1, songLength, maxWidth);
   }, 1000);
+  return updateTimelineTimeout;
 }
+
+function setupAnimation() {
+  const container = document.getElementById('nzqm-timer-bar-container');
+  const background = document.getElementById('nzqm-timer-background');
+
+  const bar = document.getElementById('nzqm-timer-bar');
+  const maxWidth = bar.clientWidth;
+  const leftOffset = bar.getBoundingClientRect().x;
+  const rightOffset = maxWidth + leftOffset;
+
+  container.addEventListener('drag',drag,false);
+  container.addEventListener('dragend',stopDrag,false);
+  container.addEventListener('click',click,false);
+
+  function drag(ev) {
+    if(updateTimelineTimeout) clearTimeout(updateTimelineTimeout);
+
+    if(ev.clientX > leftOffset && ev.clientX <= rightOffset) {
+      setTimeLine(ev.clientX-leftOffset);
+    }
+  }
+  function stopDrag(ev) {
+    const ratio = background.clientWidth / maxWidth
+
+    if (updateTimelineTimeout) startTimeline(~~ratio)
+    backgroundPage.moveTimeline(ratio)
+  }
+  function click(ev) {
+    drag(ev);
+    stopDrag(ev);
+  }
+}
+
 chrome.runtime.onMessage.addListener(updateUI);

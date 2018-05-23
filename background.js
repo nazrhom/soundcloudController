@@ -91,6 +91,21 @@ function runCommand(tab, command) {
   });
 }
 
+function runCommandInEnv(tab, command, env) {
+  chrome.tabs.executeScript(tab.id, {
+    code: env
+  }, function () {
+    runCommand(tab, command)
+  })
+}
+
+function moveTimeline(frac) {
+  console.log('called moveTimeline', frac)
+  findSoundCloundTab(function(playingTab) {
+    runCommandInEnv(playingTab, 'setTime', `var config = { frac: ${frac} }`)
+  })
+}
+
 function executeCommand(command) {
   var parsedCommand = parseCommand(command);
 
@@ -136,6 +151,5 @@ function emitPageStatus () {
 
 // Add listener for keyboard shortcuts
 chrome.commands.onCommand.addListener(function(command) {
-  console.log(command)
   executeCommand(command);
 });
