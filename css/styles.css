@@ -2,7 +2,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 100%; 
+    width: 100%;
 }
 
 .inline-flex-evenly {
@@ -72,6 +72,7 @@ button {
 }
 
 .player-info .settings-container {
+    float: right;
     width: 30px;
 }
 
@@ -155,7 +156,7 @@ input[type='range']::-webkit-slider-thumb {
 
 #nzqm-timer-background {
     height: 100%;
-    width: 0px; 
+    width: 0px;
 }
 
 #nzqm-timer-pointer {
@@ -192,13 +193,14 @@ img:hover {
 
 #nzqm-options-container {
     padding: 5px;
+    min-width: 270px;
 }
 
 #nzqm-save,
 #nzqm-shortcuts {
     padding: 5px 10px;
     border: 1px solid #ddd;
-    color: #222; 
+    color: #222;
 }
 
 #nzqm-save:hover,
@@ -209,16 +211,35 @@ img:hover {
 }
 
 #theme-select {
+    width: 100px;
+    border-radius: 0px;
+    background: transparent;
+    -webkit-border-radius: 0;
     border: 0;
-    border-bottom: 1px solid black;
-    width: 100px; 
 }
 
+#nzqm-settings-header {
+    text-align: right; 
+}
 
+#nzqm-back-button {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+    border-left: 1px solid #ddd;
+}
+
+#nzqm-operation-result {
+    min-height: 17px;
+}
+
+#nzqm-operation-result p {
+    margin: 0;
+}
 
 /*Marquee scroll*/
 .scroll-container {
-    height: 50px;	
+    height: 50px;
     overflow: hidden;
     position: relative;
 }
@@ -229,7 +250,7 @@ img:hover {
     margin: 0;
     text-align: center;
     white-space: nowrap;
-    -webkit-transform:translateX(0%);		
+    -webkit-transform:translateX(0%);
     -webkit-animation: scrollAnimation 7s linear infinite;
 }
 /* Move it (define the animation) */

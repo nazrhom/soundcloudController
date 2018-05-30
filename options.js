@@ -3,8 +3,9 @@ let HandlerTimeout;
 
 document.addEventListener('DOMContentLoaded', function () {
     getSelectedTheme();
-    document.querySelector('#nzqm-shortcuts').addEventListener('click', openShortcutsView);
+    document.querySelector('#nzqm-shortcuts') && document.querySelector('#nzqm-shortcuts').addEventListener('click', openShortcutsView);
     document.querySelector('#theme-select').addEventListener('change', saveOptions)
+    document.getElementById('nzqm-back-button').addEventListener('click', backToMainPage);
 });
 
 function openShortcutsView() {
@@ -35,7 +36,6 @@ function getSelectedTheme() {
         } else {
             setPreview('light');
         }
-
     });
 }
 
@@ -60,6 +60,6 @@ function clearHandle(element, classToRemove) {
     }, 3000)
 }
 
-
-
-
+function backToMainPage() {
+  window.location.href = 'popup.html'
+}

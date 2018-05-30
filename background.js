@@ -100,7 +100,6 @@ function runCommandInEnv(tab, command, env) {
 }
 
 function moveTimeline(frac) {
-  console.log('called moveTimeline', frac)
   findSoundCloundTab(function (playingTab) {
     runCommandInEnv(playingTab, 'setTime', `var config = { frac: ${frac} }`)
   })
@@ -116,16 +115,14 @@ function executeCommand(command) {
 
       var createProperties = {
         url: lastActiveTab.url,
-        active: false
+        active: true
       };
-      chrome.tabs.create(createProperties, function (newTab) {
-        executeCommandOnTab(newTab, parsedCommand)
-      });
+      chrome.tabs.create(createProperties);
     }
     else {
       var createProperties = {
         url: 'https://soundcloud.com/stream',
-        active: false
+        active: true
       };
       chrome.tabs.create(createProperties);
     }
