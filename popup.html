@@ -6,12 +6,11 @@
 	<title>SoundCloud Controller Popup</title>
 
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="popup.js"></script>
+	<link rel="stylesheet" href="css/themes.css">
 </head>
 
 <body>
-
-	<div class="player-card">
+	<div class="player-card" id="nzqm-player-container">
 		<div class="player-info inline-flex-center">
 			<div id="nzqm-song-image"></div>
 			<div class="song-info scroll-container">
@@ -23,11 +22,9 @@
 				<p id="nzqm-title"></p>
 			</div>
 			<div class="settings-container">
-				<a href="settings.html">
-					<button class="settings" id="nzqm-settings-button">
-						<img id="nzqm-settings-icon" src="img/settings.svg" width="19">
-					</button>
-				</a>
+				<button class="settings" id="nzqm-settings-button">
+					<img id="nzqm-settings-icon" src="img/settings.svg" width="19">
+				</button>
 			</div>
 		</div>
 		<div id="nzqm-timer-container">
@@ -35,7 +32,7 @@
 			<div id="nzqm-timer-bar-container">
 				<div id="nzqm-timer-bar">
 					<div id="nzqm-timer-background"></div>
-					<div id="nzqm-timer-pointer"></div>
+					<div id="nzqm-timer-pointer" draggable="true"></div>
 				</div>
 			</div>
 		</div>
@@ -65,7 +62,7 @@
 		</div>
 	</div>
 
-
+	<script src="popup.js"></script>
 </body>
 
 </html>

@@ -23,6 +23,7 @@ function executeBackgroundCommand(command) {
 
 document.addEventListener('DOMContentLoaded', function () {
   backgroundPage.emitPageStatus();
+  applySelectedTheme();
 
   // Setup Listeners
   document.getElementById('nzqm-play-pause-button').addEventListener('click', executeBackgroundCommand('play-or-pause'));
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('nzqm-repeat-button').addEventListener('click', executeBackgroundCommand('repeat'));
   document.getElementById('nzqm-volume-button').addEventListener('click', executeBackgroundCommand('mute-unmute'));
   document.getElementById('nzqm-like-button').addEventListener('click', executeBackgroundCommand('like'));
+  document.getElementById('nzqm-settings-button').addEventListener('click', openOptionsPage);
   setupAnimation();
 });
 
@@ -130,7 +132,7 @@ function formatTime(time) {
   var ret = '';
 
   if (hrs > 0) {
-      ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
+    ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
   }
 
   ret += '' + mins + ':' + (secs < 10 ? '0' : '');
@@ -170,15 +172,15 @@ function setupAnimation() {
   const leftOffset = bar.getBoundingClientRect().x;
   const rightOffset = maxWidth + leftOffset;
 
-  container.addEventListener('drag',drag,false);
-  container.addEventListener('dragend',stopDrag,false);
-  container.addEventListener('click',click,false);
+  container.addEventListener('drag', drag, false);
+  container.addEventListener('dragend', stopDrag, false);
+  container.addEventListener('click', click, false);
 
   function drag(ev) {
-    if(updateTimelineTimeout) clearTimeout(updateTimelineTimeout);
+    if (updateTimelineTimeout) clearTimeout(updateTimelineTimeout);
 
-    if(ev.clientX > leftOffset && ev.clientX <= rightOffset) {
-      setTimeLine(ev.clientX-leftOffset);
+    if (ev.clientX > leftOffset && ev.clientX <= rightOffset) {
+      setTimeLine(ev.clientX - leftOffset);
     }
   }
   function stopDrag(ev) {
@@ -192,5 +194,27 @@ function setupAnimation() {
     stopDrag(ev);
   }
 }
+
+function openOptionsPage() {
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  }
+}
+
+function applySelectedTheme() {
+  chrome.storage.sync.get(['theme'], function (result) {
+    const playerContainer = document.querySelector('#nzqm-player-container');
+    if(result && result['theme']) {
+      playerContainer.classList.add(result['theme']);
+      const settingsIcon = document.querySelector('#nzqm-settings-icon');
+      if (result['theme'] !== 'light') settingsIcon.src = 'img/settings-white.svg';
+    } else {
+      playerContainer.classList.add('light');
+    }
+  });
+}
+
 
 chrome.runtime.onMessage.addListener(updateUI);

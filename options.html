@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Test Extension Options</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="nzqm-options-container">
+        <div class="m-t-10">
+            <div class="text-center">
+                <b>Selected Theme:</b>
+            </div>
+            <div class="text-center">
+                <img id="nzqm-theme-preview" src="" alt="" width="150" height="75">
+            </div>
+        </div>
+
+        <div class="inline-flex-evenly m-t-10">
+            <label for="theme-select">
+                <b>Choose a Theme:</b>
+            </label>
+            <select name="theme-select" id="theme-select">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="aqua">Aqua</option>
+                <option value="violet">Violet</option>
+            </select>
+        </div>
+
+        <div id="nzqm-operation-result">
+            <p class="text-center"></p>
+        </div>
+
+        <div class="inline-flex-evenly m-t-10 text-center">
+            <p>Click
+                <b>Shortcut Settings</b> button, this will open a new tab with all extensions shortcuts options. Find SoundCloud
+                Controller extension and set new shortcuts</p>
+        </div>
+        <div class="inline-flex-evenly">
+            <button id="nzqm-shortcuts">Shortcut Settings</button>
+        </div>
+    </div>
+
+
+    <script src="options.js"></script>
+</body>
+
+</html>

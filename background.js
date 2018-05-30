@@ -4,50 +4,50 @@ var queryInfo = {
 };
 var soundCloudStatus = {};
 
-function prepareScript (scriptFile) {
+function prepareScript(scriptFile) {
   var scriptDetail = {};
   scriptDetail.file = '/js/' + scriptFile + '.js';
 
   return scriptDetail;
 }
 
-function isTabPlaying (tab, callback) {
-  getTabInfo(tab.id, function(tabInfo) {
+function isTabPlaying(tab, callback) {
+  getTabInfo(tab.id, function (tabInfo) {
     return callback(tabInfo.playing);
   });
 }
 
-function getTabInfo (tabId, callback) {
-  chrome.tabs.executeScript(tabId, prepareScript('getTabInfo'), function(results) {
+function getTabInfo(tabId, callback) {
+  chrome.tabs.executeScript(tabId, prepareScript('getTabInfo'), function (results) {
     return callback(results[0]);
   });
 }
 
-function findSuitableTab (tabs, callback) {
-  return async.detect(tabs, isTabPlaying, function(playingTab) {
-     if (playingTab) {
-       //update playing tab
-       lastActiveTab = playingTab;
+function findSuitableTab(tabs, callback) {
+  return async.detect(tabs, isTabPlaying, function (playingTab) {
+    if (playingTab) {
+      //update playing tab
+      lastActiveTab = playingTab;
 
-       return callback(playingTab);
-     } else {
-       // if no tab is playing return lastActiveTab
-       if (lastActiveTab) {
-         return callback(lastActiveTab);
-       } else {
-         //if all else fails just return first tab found
-         var pausedTab = tabs[0];
+      return callback(playingTab);
+    } else {
+      // if no tab is playing return lastActiveTab
+      if (lastActiveTab) {
+        return callback(lastActiveTab);
+      } else {
+        //if all else fails just return first tab found
+        var pausedTab = tabs[0];
 
-         // save as lastplaying tab
-         lastActiveTab = pausedTab;
-         return callback(pausedTab);
-       }
-     }
+        // save as lastplaying tab
+        lastActiveTab = pausedTab;
+        return callback(pausedTab);
+      }
+    }
   });
 }
 
-function findSoundCloundTab (callback) {
-  chrome.tabs.query(queryInfo, function(tabs) {
+function findSoundCloundTab(callback) {
+  chrome.tabs.query(queryInfo, function (tabs) {
 
     if (tabs.length === 0) return callback();
 
@@ -59,7 +59,7 @@ function findSoundCloundTab (callback) {
     }
 
     else {
-      findSuitableTab(tabs, function(tab) {
+      findSuitableTab(tabs, function (tab) {
         return callback(tab);
       });
     }
@@ -68,7 +68,7 @@ function findSoundCloundTab (callback) {
 }
 
 function parseCommand(command) {
-  return command.split('-').map(function(word, index) {
+  return command.split('-').map(function (word, index) {
     if (index !== 0) return word.charAt(0).toUpperCase().concat(word.slice(1));
     return word;
   }).join('');
@@ -101,7 +101,7 @@ function runCommandInEnv(tab, command, env) {
 
 function moveTimeline(frac) {
   console.log('called moveTimeline', frac)
-  findSoundCloundTab(function(playingTab) {
+  findSoundCloundTab(function (playingTab) {
     runCommandInEnv(playingTab, 'setTime', `var config = { frac: ${frac} }`)
   })
 }
@@ -109,7 +109,7 @@ function moveTimeline(frac) {
 function executeCommand(command) {
   var parsedCommand = parseCommand(command);
 
-  findSoundCloundTab(function(playingTab) {
+  findSoundCloundTab(function (playingTab) {
     if (playingTab) {
       executeCommandOnTab(playingTab, parsedCommand)
     } else if (lastActiveTab) {
@@ -118,20 +118,24 @@ function executeCommand(command) {
         url: lastActiveTab.url,
         active: false
       };
-      chrome.tabs.create(createProperties, function(newTab) {
+      chrome.tabs.create(createProperties, function (newTab) {
         executeCommandOnTab(newTab, parsedCommand)
       });
     }
     else {
-      console.log('Not tab or lastActiveTab found :(');
+      var createProperties = {
+        url: 'https://soundcloud.com/stream',
+        active: false
+      };
+      chrome.tabs.create(createProperties);
     }
   });
 }
 
-function emitPageStatus () {
-  findSoundCloundTab(function(tab) {
+function emitPageStatus() {
+  findSoundCloundTab(function (tab) {
     if (tab) {
-      getTabInfo(tab.id, function(tabInfo) {
+      getTabInfo(tab.id, function (tabInfo) {
         soundCloudStatus.playing = tabInfo.playing;
         soundCloudStatus.repeating = tabInfo.repeating;
         soundCloudStatus.muted = tabInfo.muted;
@@ -148,8 +152,18 @@ function emitPageStatus () {
   });
 }
 
+function openShortcutsView() {
+  var createProperties = {
+    url: 'chrome://extensions/shortcuts',
+    active: false
+  };
+  chrome.tabs.create(createProperties, function (newTab) {
+    executeCommandOnTab(newTab, parsedCommand)
+  });
+}
+
 
 // Add listener for keyboard shortcuts
-chrome.commands.onCommand.addListener(function(command) {
+chrome.commands.onCommand.addListener(function (command) {
   executeCommand(command);
 });
