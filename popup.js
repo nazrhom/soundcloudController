@@ -141,6 +141,7 @@ function formatTime(time) {
 }
 
 function startTimeline(current) {
+  console.log('startTimeline called')
   var timelineWidth = document.getElementById('nzqm-timer-bar').clientWidth;
 
   // var timelineSongLength = document.getElementById('nzqm-song-image');
@@ -149,6 +150,7 @@ function startTimeline(current) {
 }
 
 function updateTimeline(current, songLength, maxWidth) {
+  console.log('updateTimeline called', current, songLength)
   var timelineCurrent = document.getElementById('nzqm-timer-pointer');
   var timeLineBackgroud = document.getElementById('nzqm-timer-background');
   var modifier = current / songLength;
@@ -185,8 +187,6 @@ function setupAnimation() {
   }
   function stopDrag(ev) {
     const ratio = background.clientWidth / maxWidth
-
-    if (updateTimelineTimeout) startTimeline(~~ratio)
     backgroundPage.moveTimeline(ratio)
   }
   function click(ev) {

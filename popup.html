@@ -2,67 +2,67 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<title>SoundCloud Controller Popup</title>
+  <meta charset="utf-8" />
+  <title>SoundCloud Controller Popup</title>
 
-	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/themes.css">
 </head>
 
 <body>
-	<div class="player-card" id="nzqm-player-container">
-		<div class="player-info inline-flex-center">
-			<div id="nzqm-song-image"></div>
-			<div class="song-info scroll-container">
-				<p id="nzqm-artist">
-					<small>
-						<b></b>
-					</small>
-				</p>
-				<p id="nzqm-title"></p>
-			</div>
-			<div class="settings-container">
-				<button class="settings" id="nzqm-settings-button">
-					<img id="nzqm-settings-icon" src="img/settings.svg" width="19">
-				</button>
-			</div>
-		</div>
-		<div id="nzqm-timer-container">
-			<div id="nzqm-clock">--:--</div>
-			<div id="nzqm-timer-bar-container">
-				<div id="nzqm-timer-bar">
-					<div id="nzqm-timer-background"></div>
-					<div id="nzqm-timer-pointer" draggable="true"></div>
-				</div>
-			</div>
-		</div>
-		<div class="player-controls inline-flex-center">
-			<button class="prev" id="nzqm-previous-button">
-				<img src="img/prev.svg" width="13">
-			</button>
-			<button class="play-pause" id="nzqm-play-pause-button">
-				<img id="nzqm-play-pause" src="img/play.svg" height="20">
-			</button>
-			<button class="next" id="nzqm-next-button">
-				<img src="img/next.svg" width="13" height="20">
-			</button>
+  <div class="player-card" id="nzqm-player-container">
+    <div class="player-info inline-flex-center">
+      <div id="nzqm-song-image"></div>
+      <div class="song-info scroll-container">
+        <p id="nzqm-artist">
+          <small>
+            <b></b>
+          </small>
+        </p>
+        <p id="nzqm-title"></p>
+      </div>
+      <div class="settings-container">
+        <button class="settings" id="nzqm-settings-button">
+          <img id="nzqm-settings-icon" src="img/settings.svg" width="19">
+        </button>
+      </div>
+    </div>
+    <div id="nzqm-timer-container">
+      <div id="nzqm-clock">--:--</div>
+      <div id="nzqm-timer-bar-container">
+        <div id="nzqm-timer-bar">
+          <div id="nzqm-timer-background"></div>
+          <div id="nzqm-timer-pointer" draggable="true"></div>
+        </div>
+      </div>
+    </div>
+    <div class="player-controls inline-flex-center">
+      <button class="prev" id="nzqm-previous-button">
+        <img src="img/prev.svg" width="13">
+      </button>
+      <button class="play-pause" id="nzqm-play-pause-button">
+        <img id="nzqm-play-pause" src="img/play.svg" height="20">
+      </button>
+      <button class="next" id="nzqm-next-button">
+        <img src="img/next.svg" width="13" height="20">
+      </button>
 
-			<button class="repeat" id="nzqm-repeat-button">
-				<img id="nzqm-replay" src="img/repeat.svg" width="19" height="20">
-			</button>
-			<button class="sound" id="nzqm-volume-button">
-				<img id="nzqm-volume" src="img/max_volume.svg" width="19" height="20">
-			</button>
-			<button class="like" id="nzqm-like-button">
-				<img id="nzqm-like-icon" src="img/dislike.svg" width="19" height="20">
-			</button>
-		</div>
-		<div id="nzqm-scroll-volume">
-			<input type="range" min="0" max="50" value="5" step="5" onchange="rangevalue.value=value" />
-		</div>
-	</div>
+      <button class="repeat" id="nzqm-repeat-button">
+        <img id="nzqm-replay" src="img/repeat.svg" width="19" height="20">
+      </button>
+      <button class="sound" id="nzqm-volume-button">
+        <img id="nzqm-volume" src="img/max_volume.svg" width="19" height="20">
+      </button>
+      <button class="like" id="nzqm-like-button">
+        <img id="nzqm-like-icon" src="img/dislike.svg" width="19" height="20">
+      </button>
+    </div>
+    <div id="nzqm-scroll-volume">
+      <input type="range" min="0" max="50" value="5" step="5" onchange="rangevalue.value=value" />
+    </div>
+  </div>
 
-	<script src="popup.js"></script>
+  <script src="popup.js"></script>
 </body>
 
 </html>
