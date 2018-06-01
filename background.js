@@ -152,7 +152,7 @@ function emitPageStatus() {
 function openShortcutsView() {
   var createProperties = {
     url: 'chrome://extensions/shortcuts',
-    active: false
+    active: true
   };
   chrome.tabs.create(createProperties, function (newTab) {
     executeCommandOnTab(newTab, parsedCommand)
