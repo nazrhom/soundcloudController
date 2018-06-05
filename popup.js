@@ -176,14 +176,15 @@ function setupAnimation() {
   const leftOffset = bar.getBoundingClientRect().x
   const rightOffset = maxWidth + leftOffset
   const img = new Image()
-  img.src = 'img/empty.svg';
+  img.src = 'img/empty.svg'
 
   document.addEventListener('dragover', function(e) {
-    e.preventDefault();
-  });
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
+  })
   container.addEventListener('dragstart', function(e) {
     e.dataTransfer.setDragImage(img, 10, 10)
-  });
+  })
 
   container.addEventListener('drag', drag, false)
   container.addEventListener('dragend', stopDrag, false)
