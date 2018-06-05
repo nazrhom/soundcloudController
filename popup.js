@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   applySelectedTheme()
 
   // Setup Listeners
-  document.getElementById('nzqm-play-pause-button').addEventListener('click', executeBackgroundCommand('play-or-pause'))
+  document.getElementById('nzqm-play-pause-button').addEventListener('click', togglePlayPause)
   document.getElementById('nzqm-previous-button').addEventListener('click', executeBackgroundCommand('previous'))
   document.getElementById('nzqm-next-button').addEventListener('click',  executeBackgroundCommand('next'))
   document.getElementById('nzqm-repeat-button').addEventListener('click', executeBackgroundCommand('repeat'))
@@ -35,6 +35,13 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('nzqm-settings-button').addEventListener('click', openOptionsPage)
   setupAnimation()
 })
+
+function togglePlayPause() {
+  if (!UI_STATUS.playing && updateTimelineTimeout) {
+    clearTimeout(updateTimelineTimeout)
+  }
+  backgroundPage.executeCommand('play-or-pause')
+}
 
 function setPlayPauseButton(playing, songCurrentTime) {
   var image = document.getElementById('nzqm-play-pause')
