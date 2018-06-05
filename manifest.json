@@ -1,18 +1,15 @@
 {
   "manifest_version": 2,
-
   "name": "__MSG_extName__",
   "short_name": "__MSG_extShortName__",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "version": "1.0",
-
   "icons": {
     "16": "soundcloud.png",
     "48": "soundcloud.png",
     "128": "soundcloud.png"
   },
-
   "browser_action": {
     "default_icon": {
       "19": "soundcloud.png",
@@ -23,32 +20,37 @@
   "background": {
     "page": "background.html"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "commands": {
-     "play-or-pause": {
-       "suggested_key": {
-         "default": "Ctrl+Shift+Y",
-         "mac": "Command+Shift+A"
-       },
-       "description": "Play or pause song",
-       "global": true
-     },
-     "repeat": {
-       "description": "Toggle repeat current",
-       "global": true
-     },
-     "next": {
-       "description": "Go to next song",
-       "global": true
-     },
-     "previous": {
-       "description": "Go to previous song",
-       "global": true
-     }
-   },
-
+    "play-or-pause": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+A"
+      },
+      "description": "Play or pause song",
+      "global": true
+    },
+    "repeat": {
+      "description": "Toggle repeat current",
+      "global": true
+    },
+    "next": {
+      "description": "Go to next song",
+      "global": true
+    },
+    "previous": {
+      "description": "Go to previous song",
+      "global": true
+    }
+  },
   "permissions": [
     "activeTab",
     "*://soundcloud.com/*",
-    "tabs"
+    "*://extensions/*",
+    "tabs",
+    "storage"
   ]
 }

@@ -2,7 +2,33 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 100%; 
+    width: 100%;
+}
+
+.inline-flex-evenly {
+    display: inline-flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.m-t-10 {
+    margin-top: 10px;
+}
+
+.m-t-20 {
+    margin-top: 20px;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
 }
 
 .prev,
@@ -20,8 +46,6 @@ button {
 }
 
 .player-controls {
-    background: -webkit-linear-gradient(top, rgba(221,221,221,0.95) 1%,rgba(241, 241, 241, 0.95) 70%,rgba(0,0,0,0) 100%);
-    border: 1px solid #CECECE;
     padding: 0.4em 0;
     min-height: 28px;
 }
@@ -43,17 +67,13 @@ button {
 
 .player-info .song-info {
     width: calc(100% - 95px);
-    color: #222;
     font: 13px/1.4 "Lucida Grande", "Lucida Sans Unicode", "Lucida Saem", Garuda, Verdana, Tahoma, sans-serif;
     padding-left: 2px;
 }
 
 .player-info .settings-container {
+    float: right;
     width: 30px;
-}
-
-#nzqm-settings-button {
-    border-left: 1px solid #ddd;
 }
 
 #nzqm-artist {
@@ -76,12 +96,7 @@ button {
     padding: 0 1em;
 }
 
-.sound {
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
-}
-
 .like {
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
     padding: 0.2em 0.5em;
 }
 
@@ -95,26 +110,8 @@ input[type='range'] {
     vertical-align: middle;
 }
 
-input[type='range']::-moz-range-track {
-    -moz-appearance: none;
-    border-radius: 5px;
-    box-shadow: inset 0 0 5px #333;
-    background-color: #999;
-    height: 10px;
-}
-
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
-    border-radius: 20px;
-    background-color: #FFF;
-    box-shadow: inset 0 0 10px rgba(000, 000, 000, 0.5);
-    border: 1px solid #999;
-    height: 20px;
-    width: 20px;
-}
-
-input[type='range']::-moz-range-thumb {
-    -moz-appearance: none;
     border-radius: 20px;
     background-color: #FFF;
     box-shadow: inset 0 0 10px rgba(000, 000, 000, 0.5);
@@ -126,12 +123,50 @@ input[type='range']::-moz-range-thumb {
 #nzqm-scroll-volume {
     width: 8.9em;
     padding: 15px;
-    background: #222;
     transform: rotate(90deg);
     border-radius: 0 4px 4px 0px;
     margin-top: 62px;
     margin-left: 240px;
     display: none;
+}
+
+#nzqm-timer-container {
+    display: flex;
+}
+
+#nzqm-timer-bar-container {
+    width: 80%;
+    position: absolute;
+    top: 58px;
+    right: 10px;
+}
+
+#nzqm-timer-bar {
+    width: 100%;
+    height: 3px;
+    margin: 7px 0 0 0;
+    position: relative;
+    border-radius: 50px;
+}
+
+#nzqm-clock {
+    padding: 5px;
+    font-size: 10px;
+}
+
+#nzqm-timer-background {
+    height: 100%;
+    width: 0px;
+}
+
+#nzqm-timer-pointer {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-left: -6px;
+    margin-top: -6px;
+    cursor: pointer;
 }
 
 .disappear {
@@ -154,43 +189,57 @@ img:hover {
     cursor: pointer;
 }
 
-/*Settings container*/
-.player-settings {
-    min-width: 400px;
+/*Settings page*/
+
+#nzqm-options-container {
     padding: 5px;
-    width: auto;
+    min-width: 270px;
 }
 
-.player-settings .header {
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; 
-}
-
-.player-settings .content {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-family: monospace;
-    font-size: 15px;
+#nzqm-save,
+#nzqm-shortcuts {
     padding: 5px 10px;
-    text-align: center;
+    border: 1px solid #ddd;
+    color: #222;
 }
 
-.player-settings .footer {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; 
+#nzqm-save:hover,
+#nzqm-shortcuts:hover {
+    padding: 5px 10px;
+    color: #fff;
+    background: #f50;
 }
 
+#theme-select {
+    width: 100px;
+    border-radius: 0px;
+    background: transparent;
+    -webkit-border-radius: 0;
+    border: 0;
+}
 
+#nzqm-settings-header {
+    text-align: right; 
+}
+
+#nzqm-back-button {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+    border-left: 1px solid #ddd;
+}
+
+#nzqm-operation-result {
+    min-height: 17px;
+}
+
+#nzqm-operation-result p {
+    margin: 0;
+}
 
 /*Marquee scroll*/
 .scroll-container {
-    height: 50px;	
+    height: 50px;
     overflow: hidden;
     position: relative;
 }
@@ -201,7 +250,7 @@ img:hover {
     margin: 0;
     text-align: center;
     white-space: nowrap;
-    -webkit-transform:translateX(0%);		
+    -webkit-transform:translateX(0%);
     -webkit-animation: scrollAnimation 7s linear infinite;
 }
 /* Move it (define the animation) */

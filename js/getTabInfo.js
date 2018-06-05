@@ -16,6 +16,12 @@ tabInfo.title = tabTitle ? tabTitle.title : '';
 
 tabInfo.image = document.querySelector('.playbackSoundBadge__avatar div span').style.backgroundImage;
 
+var progress = document.getElementsByClassName('playbackTimeline__progressWrapper')[0]
+
+tabInfo.songLength = parseInt(progress.attributes["aria-valuemax"].value, 10)
+tabInfo.songCurrentTime = parseInt(progress.attributes["aria-valuenow"].value, 10)
+tabInfo.progressWidth = progress.clientWidth
+
 tabInfo;
 
 
