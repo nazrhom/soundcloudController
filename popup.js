@@ -44,49 +44,50 @@ function togglePlayPause() {
 }
 
 function setPlayPauseButton(playing, songCurrentTime) {
-  var image = document.getElementById('nzqm-play-pause')
+  var icon = document.getElementById('nzqm-play-pause')
   var marquee = document.getElementById('nzqm-title')
   var animation
 
   if (playing) {
     startTimeline(songCurrentTime)
-    image.src = 'img/pause.svg'
+    console.dir(icon)
+    icon.className  = 'icon-pause'
   } else {
     if (updateTimelineTimeout) {
       clearTimeout(updateTimelineTimeout)
     }
-    image.src = 'img/play.svg'
+    icon.className  = 'icon-play'
   }
 }
 
 
 
 function setRepeat(repeating) {
-  var image = document.getElementById('nzqm-replay')
+  var icon = document.getElementById('nzqm-replay')
   if (repeating === 1) {
-    image.src = 'img/repeat_one.svg'
+    icon.className  = 'icon-repeat_one'
   } else if (repeating === 2) {
-    image.src = 'img/repeat_all.svg'
+    icon.className  = 'icon-repeat_all'
   } else {
-    image.src = 'img/repeat.svg'
+    icon.className  = 'icon-repeat'
   }
 }
 
 function setMute(muted) {
-  var image = document.getElementById('nzqm-volume')
+  var icon = document.getElementById('nzqm-volume')
   if (muted) {
-    image.src = 'img/mute.svg'
+    icon.className  = 'icon-mute'
   } else {
-    image.src = 'img/max_volume.svg'
+    icon.className  = 'icon-max_volume'
   }
 }
 
 function setLike(liking) {
-  var image = document.getElementById('nzqm-like-icon')
+  var icon = document.getElementById('nzqm-like-icon')
   if (liking) {
-    image.src = 'img/like.svg'
+    icon.className  = 'icon-like'
   } else {
-    image.src = 'img/dislike.svg'
+    icon.className  = 'icon-dislike'
   }
 }
 
@@ -217,7 +218,7 @@ function applySelectedTheme() {
     if(result && result['theme']) {
       playerContainer.classList.add(result['theme'])
       const settingsIcon = document.querySelector('#nzqm-settings-icon')
-      if (result['theme'] !== 'light') settingsIcon.src = 'img/settings-white.svg'
+      if (result['theme'] !== 'light') settingsIcon.className  = 'icon-settings-white'
     } else {
       playerContainer.classList.add('light')
     }
