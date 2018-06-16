@@ -158,14 +158,18 @@ function startTimeline(current) {
 
 function updateTimeline(current, songLength, maxWidth) {
   var modifier = current / songLength
-
-  setTime(current)
-  setTimeLine((modifier * maxWidth))
-  updateTimelineTimeout = setTimeout(() => {
-    clearTimeout(updateTimelineTimeout)
-    updateTimeline(current + 1, songLength, maxWidth)
-  }, 1000)
-  return updateTimelineTimeout
+  if (modifier >= 1) {
+    backgroundPage.emitPageStatus()
+    return
+  } else {
+    setTime(current)
+    setTimeLine((modifier * maxWidth))
+    updateTimelineTimeout = setTimeout(() => {
+      clearTimeout(updateTimelineTimeout)
+      updateTimeline(current + 1, songLength, maxWidth)
+    }, 1000)
+    return updateTimelineTimeout  
+  }
 }
 
 function setupAnimation() {
