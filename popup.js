@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function togglePlayPause() {
-  if (!UI_STATUS.playing && updateTimelineTimeout) {
+  if (UI_STATUS && !UI_STATUS.playing && updateTimelineTimeout) {
     clearTimeout(updateTimelineTimeout)
   }
   backgroundPage.executeCommand('play-or-pause')
@@ -45,12 +45,9 @@ function togglePlayPause() {
 
 function setPlayPauseButton(playing, songCurrentTime) {
   var icon = document.getElementById('nzqm-play-pause')
-  var marquee = document.getElementById('nzqm-title')
-  var animation
 
   if (playing) {
     startTimeline(songCurrentTime)
-    console.dir(icon)
     icon.className  = 'icon-pause'
   } else {
     if (updateTimelineTimeout) {
