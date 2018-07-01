@@ -164,7 +164,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 #nzqm-timer-bar-container {
-    width: 80%;
+    width: 75%;
     position: absolute;
     top: 58px;
     right: 10px;
@@ -248,7 +248,7 @@ img:hover {
 }
 
 #nzqm-settings-header {
-    text-align: right; 
+    text-align: right;
 }
 
 #nzqm-back-button {
